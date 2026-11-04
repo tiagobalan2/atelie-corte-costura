@@ -1,0 +1,117 @@
+.section {
+  padding: 80px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.heading span {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.heading h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.info {
+  padding: 16px 0;
+}
+
+.name {
+  width: 75%;
+  height: 18px;
+  margin-bottom: 12px;
+}
+
+.description {
+  width: 90%;
+  height: 12px;
+  margin-bottom: 14px;
+}
+
+.price {
+  width: 35%;
+  height: 16px;
+}
+
+/* ANIMAÇÃO SKELETON */
+
+.image,
+.name,
+.description,
+.price {
+  border-radius: 4px;
+
+  background: linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #f8f8f8 50%,
+    #eeeeee 75%
+  );
+
+  background-size: 200% 100%;
+
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 50px 5%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .name,
+  .description,
+  .price {
+    animation: none;
+  }
+}
