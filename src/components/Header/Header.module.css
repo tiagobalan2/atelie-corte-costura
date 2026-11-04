@@ -1,0 +1,59 @@
+.header {
+  width: 100%;
+  height: 90px;
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.logo span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+
+.navigation {
+  display: flex;
+  gap: 32px;
+}
+
+.navigation a {
+  color: #25201c;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.navigation a:hover {
+  color: #a95745;
+}
+
+.contactButton {
+  padding: 14px 22px;
+  border: 1px solid #25201c;
+
+  color: #25201c;
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.contactButton:hover {
+  background-color: #25201c;
+  color: white;
+}

@@ -1,0 +1,150 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 35px 5% 100px;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: #716860;
+  margin-bottom: 35px;
+}
+
+.breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 70px;
+}
+
+.mainImage {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-color: #f5f0eb;
+}
+
+.mainImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.thumbnails button {
+  width: 85px;
+  height: 100px;
+  padding: 0;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.thumbnails .selected {
+  border-color: #25201c;
+}
+
+.thumbnails img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.information {
+  padding-top: 25px;
+}
+
+.category {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #a95745;
+  text-transform: uppercase;
+}
+
+.information h1 {
+  font-size: 44px;
+  font-weight: 500;
+  margin: 20px 0;
+}
+
+.price {
+  display: block;
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+.information p,
+.information li {
+  color: #716860;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.information hr {
+  border: none;
+  border-top: 1px solid #e3dcd5;
+  margin: 30px 0;
+}
+
+.information h3 {
+  font-size: 14px;
+}
+
+.whatsapp,
+.instagram {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  margin-top: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.whatsapp {
+  background-color: #25201c;
+  border: 1px solid #25201c;
+  color: white;
+}
+
+.instagram {
+  background-color: white;
+  border: 1px solid #25201c;
+  color: #25201c;
+}
+
+.information button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.information small {
+  display: block;
+  margin-top: 15px;
+  color: #716860;
+}
+
+.notFound {
+  padding: 80px 5%;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .information h1 {
+    font-size: 34px;
+  }
+
+  .container {
+    padding: 25px 5% 60px;
+  }
+}

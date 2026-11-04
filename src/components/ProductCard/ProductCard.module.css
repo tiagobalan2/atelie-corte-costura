@@ -1,0 +1,64 @@
+.card {
+  width: 100%;
+  cursor: pointer;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: #f5f0eb;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+
+  background-color: white;
+  padding: 8px 12px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.information {
+  padding-top: 18px;
+}
+
+.information h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.information p {
+  font-size: 13px;
+  color: #716860;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.information strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
