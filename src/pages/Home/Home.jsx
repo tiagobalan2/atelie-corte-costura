@@ -4,10 +4,11 @@ import HeroCarousel from "../../components/HeroCarousel/HeroCarousel";
 import ProductGrid from "../../components/ProductGrid/ProductGrid";
 import AboutSection from "../../components/AboutSection/AboutSection";
 import Loader from "../../components/Loader/Loader";import { banners } from "../../data/banners";
-import { products as demoProducts } from "../../data/products";
 
-import { getProducts } from "../../services/productService";
-
+import {
+  getProducts,
+  getProductImageUrl,
+} from "../../services/productService";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,15 +22,18 @@ export default function Home() {
         // Temporário: aproveitamos as imagens demonstrativas
         // enquanto não configuramos o Supabase Storage.
         const formattedProducts = data.map((product) => {
-          const demo = demoProducts.find(
-            (item) => item.slug === product.slug
-          );
+  const sortedImages = [...(product.product_images || [])]
+    .sort((a, b) => a.display_order - b.display_order);
 
-          return {
-            ...product,
-            image: demo?.image || demoProducts[0]?.image || "",
-          };
-        });
+  const mainImage = sortedImages[0];
+
+  return {
+    ...product,
+    image: mainImage
+      ? getProductImageUrl(mainImage.storage_path)
+      : "",
+  };
+});
 
         setProducts(formattedProducts);
       } catch (err) {
