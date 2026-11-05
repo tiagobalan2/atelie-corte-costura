@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { supabase } from "../../../lib/supabase";
-
+import {
+  setProductPublished,
+} from "../../../services/adminProductService";
 import {
   getAdminProducts,
   getProductImageUrl,
@@ -19,6 +21,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [updatingId, setUpdatingId] = useState(null);
+const [actionError, setActionError] = useState("");
   useEffect(() => {
     let active = true;
 
@@ -44,10 +48,54 @@ export default function Dashboard() {
 
     loadProducts();
 
+    
+
     return () => {
       active = false;
     };
   }, []);
+
+  async function handleTogglePublished(product) {
+  if (updatingId) return;
+
+  setActionError("");
+
+  // Evitar publicar produtos sem fotografia
+  if (
+    !product.is_published &&
+    !product.product_images?.length
+  ) {
+    setActionError(
+      "Adicione pelo menos uma fotografia antes de publicar."
+    );
+    return;
+  }
+
+  setUpdatingId(product.id);
+
+  try {
+    const updatedProduct = await setProductPublished(
+      product.id,
+      !product.is_published
+    );
+
+    setProducts((currentProducts) =>
+      currentProducts.map((item) =>
+        item.id === product.id
+          ? { ...item, ...updatedProduct }
+          : item
+      )
+    );
+  } catch (err) {
+    console.error("Erro ao alterar publicação:", err);
+
+    setActionError(
+      "Não foi possível alterar a publicação do produto."
+    );
+  } finally {
+    setUpdatingId(null);
+  }
+}
 
   async function handleLogout() {
     const { error } = await supabase.auth.signOut();
@@ -115,9 +163,14 @@ export default function Dashboard() {
             <p>Gerencie o catálogo do seu ateliê.</p>
           </div>
 
-          <Link to="/" className={styles.visitSite}>
-            Visualizar site ↗
-          </Link>
+          <Link
+  to="/"
+  className={styles.visitSite}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Visualizar site ↗
+</Link>
         </div>
 
         {loading ? (
@@ -144,14 +197,24 @@ export default function Dashboard() {
             </section>
 
             <section className={styles.productsSection}>
+            {actionError && (
+  <p className={styles.actionError} role="alert">
+    {actionError}
+  </p>
+)}
               <div className={styles.sectionHeader}>
-                <div>
-                  <h2>Produtos</h2>
-                  <p>
-                    Confira os produtos cadastrados.
-                  </p>
-                </div>
-              </div>
+  <div>
+    <h2>Produtos</h2>
+    <p>Confira os produtos cadastrados.</p>
+  </div>
+
+  <Link
+    to="/admin/produtos/novo"
+    className={styles.addButton}
+  >
+    + Adicionar produto
+  </Link>
+</div>
 
               {products.length === 0 ? (
                 <div className={styles.empty}>
@@ -216,14 +279,41 @@ export default function Dashboard() {
                           )}
                         </div>
 
-                        {product.is_published && (
-                          <Link
-                            to={`/produtos/${product.slug}`}
-                            className={styles.viewProduct}
-                          >
-                            Ver ↗
-                          </Link>
-                        )}
+                        <div className={styles.actions}>
+  {product.is_published && (
+    <Link
+      to={`/produtos/${product.slug}`}
+      className={styles.viewProduct}
+      target="_blank"
+        rel="noopener noreferrer"
+    >
+      Ver ↗
+    </Link>
+  )}
+
+<Link
+  to={`/admin/produtos/editar/${product.id}`}
+  className={styles.editButton}
+>
+  Editar
+</Link>
+  <button
+    type="button"
+    className={
+      product.is_published
+        ? styles.unpublishButton
+        : styles.publishButton
+    }
+    onClick={() => handleTogglePublished(product)}
+    disabled={updatingId !== null}
+  >
+    {updatingId === product.id
+      ? "Salvando..."
+      : product.is_published
+        ? "Retirar do site"
+        : "Publicar"}
+  </button>
+</div>
                       </article>
                     );
                   })}
